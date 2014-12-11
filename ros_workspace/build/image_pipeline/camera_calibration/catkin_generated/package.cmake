@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "camera_calibration")
+set(camera_calibration_MAINTAINER "Vincent Rabaud <vincent.rabaud@gmail.com>")
+set(camera_calibration_DEPRECATED "")
+set(camera_calibration_VERSION "1.10.18")
+set(camera_calibration_BUILD_DEPENDS )
+set(camera_calibration_RUN_DEPENDS "image_geometry" "message_filters" "opencv2" "rospy" "std_srvs" "sensor_msgs")
+set(camera_calibration_BUILDTOOL_DEPENDS "catkin")

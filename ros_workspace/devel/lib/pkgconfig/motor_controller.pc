@@ -1,0 +1,6 @@
+Name: motor_controller
+Description: Description of motor_controller
+Version: 0.0.0
+Cflags: -I/home/pi/ros_workspace/devel/include
+Libs: -L/home/pi/ros_workspace/devel/lib 
+Requires: 

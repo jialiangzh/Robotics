@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "tetrix_motors")
+set(tetrix_motors_MAINTAINER "pi <pi@todo.todo>")
+set(tetrix_motors_DEPRECATED "")
+set(tetrix_motors_VERSION "0.0.0")
+set(tetrix_motors_BUILD_DEPENDS "message_generation" "rospy" "std_msgs")
+set(tetrix_motors_RUN_DEPENDS "message_runtime" "rospy" "std_msgs")
+set(tetrix_motors_BUILDTOOL_DEPENDS "catkin")
