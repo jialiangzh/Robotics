@@ -1,8 +1,0 @@
-prefix=/home/ee125/ros_workspace/devel
-
-Name: object_tracking
-Description: Description of object_tracking
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/ee125/ros_workspace/devel/lib 
-Requires: 
