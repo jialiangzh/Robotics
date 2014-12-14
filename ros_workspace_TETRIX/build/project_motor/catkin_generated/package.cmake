@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "project_motor")
+set(project_motor_MAINTAINER "pi <pi@todo.todo>")
+set(project_motor_DEPRECATED "")
+set(project_motor_VERSION "0.0.0")
+set(project_motor_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
+set(project_motor_RUN_DEPENDS "roscpp" "rospy" "std_msgs")
+set(project_motor_BUILDTOOL_DEPENDS "catkin")

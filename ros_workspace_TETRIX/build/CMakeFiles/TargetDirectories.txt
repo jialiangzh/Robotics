@@ -1,0 +1,9 @@
+/home/pi/ros_workspace/build/CMakeFiles/clean_test_results.dir
+/home/pi/ros_workspace/build/CMakeFiles/doxygen.dir
+/home/pi/ros_workspace/build/gtest/CMakeFiles/gtest.dir
+/home/pi/ros_workspace/build/gtest/CMakeFiles/gtest_main.dir
+/home/pi/ros_workspace/build/raspicam/CMakeFiles/raspicam_node.dir
+/home/pi/ros_workspace/build/raspicam/CMakeFiles/raspicamcontrol.dir
+/home/pi/ros_workspace/build/raspicam/CMakeFiles/raspicli.dir
+/home/pi/ros_workspace/build/CMakeFiles/run_tests.dir
+/home/pi/ros_workspace/build/CMakeFiles/tests.dir
