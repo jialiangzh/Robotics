@@ -1,2 +1,0 @@
-/usr/bin/ar cr /home/pi/ros_workspace/devel/lib/libraspicli.a  CMakeFiles/raspicli.dir/src/RaspiCLI.cpp.o
-/usr/bin/ranlib /home/pi/ros_workspace/devel/lib/libraspicli.a
