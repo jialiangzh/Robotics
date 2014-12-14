@@ -24,7 +24,7 @@ def listener():
         str = raw_input("please enter start:")
         
     rospy.init_node('control_listener', anonymous=True)
-    rospy.Subscriber('trajectory', String, callback, queue_size=1)
+    rospy.Subscriber('command_velocity', String, callback, queue_size=1)
     
     while not str == 'e':
         str = raw_input("please enter end:")
@@ -43,6 +43,7 @@ def listener():
 def callback(message):
 
 #    print("got here\n")
+    """
     message_data = message.data
     message_split = message_data.split(", ")
     x = int(message_split[0])
@@ -72,6 +73,16 @@ def callback(message):
         print("stopped:", x, y)
     #motor_go(rot_speed, 0-rot_speed)
     #pub.publish("motor_run")
+    """
+    [v1, v2] = message.data.split(', ')
+    print('got ' + str(v1) + str(v2))
+    if v1 == '101':
+    	for i in range(0, 10):
+            motor_go(100, 100)
+        motor_stop()
+    else:
+        motor_go(int(v1), int(v2))
+        motor_stop()
 
     # mid_x_min = 330
     # mid_x_max = 350
