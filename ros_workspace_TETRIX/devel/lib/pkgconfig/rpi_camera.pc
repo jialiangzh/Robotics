@@ -1,6 +1,0 @@
-Name: rpi_camera
-Description: Description of rpi_camera
-Version: 0.0.0
-Cflags: -I
-Libs: -L/home/pi/ros_workspace/devel/lib 
-Requires: 

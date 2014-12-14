@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "motor_controller")
-set(motor_controller_MAINTAINER "pi <pi@todo.todo>")
-set(motor_controller_DEPRECATED "")
-set(motor_controller_VERSION "0.0.0")
-set(motor_controller_BUILD_DEPENDS "message_generation" "rospy")
-set(motor_controller_RUN_DEPENDS "message_runtime" "rospy")
-set(motor_controller_BUILDTOOL_DEPENDS "catkin")
