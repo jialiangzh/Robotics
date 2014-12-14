@@ -1,0 +1,6 @@
+Name: camera_calibration
+Description: Description of camera_calibration
+Version: 1.10.18
+Cflags: -I
+Libs: -L/home/pi/ros_workspace/devel/lib 
+Requires: 

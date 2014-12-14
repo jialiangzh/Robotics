@@ -1,0 +1,2 @@
+/usr/bin/ar cr /home/pi/ros_workspace/devel/lib/libraspicamcontrol.a  CMakeFiles/raspicamcontrol.dir/src/RaspiCamControl.cpp.o
+/usr/bin/ranlib /home/pi/ros_workspace/devel/lib/libraspicamcontrol.a
