@@ -1,3 +1,6 @@
 Robotics
 ========
-The project website is: jialiangzh.github.io/Robotics
+EE125 Final Project: Robotic Pet
+
+The project website is:
+http://jialiangzh.github.io/Robotics
