@@ -19,6 +19,7 @@ class ObjectTracker:
 
     # Real-world coordinates of clicked homography points
     self.world_points = [[0,0],[0,3*30.48],[3*30.48,3*30.48],[3*30.48,0]]
+    self.hasLargest = 0
 
     # Default values of sliders. Edit this once you know what values to usef
     # for filtering
@@ -28,16 +29,16 @@ class ObjectTracker:
 #    BLUR_SIGMA = 10
 
 # For human hand: 
-    COLOR_MIN = (20,117,0)
-    COLOR_MAX = (22,255,255)
-    BLUR_RADIUS = 50
-    BLUR_SIGMA = 3 
+#    COLOR_MIN = (20,117,0)
+#    COLOR_MAX = (22,255,255)
+#    BLUR_RADIUS = 50
+#    BLUR_SIGMA = 3 
 
     # now:
-#    COLOR_MIN = (0,230,129) # HSV
-#    COLOR_MAX = (10,255,191) #HSV
-#    BLUR_RADIUS = 12
-#    BLUR_SIGMA = 0
+    COLOR_MIN = (0,230,129) # HSV
+    COLOR_MAX = (10,255,191) #HSV
+    BLUR_RADIUS = 12
+    BLUR_SIGMA = 0
 
 ################################################################################
 
@@ -110,6 +111,7 @@ class ObjectTracker:
 
       # If we found red blobs, pick the largest one as the ball
       if len(bounding_boxes) > 0:
+        self.hasLargest = 1
         largest_box = self.find_largest_box(bounding_boxes)
         
         # Find the centroid of the box
@@ -118,6 +120,7 @@ class ObjectTracker:
         # Convert centroid to world coordinates, and record the observation
         z = self.compute_world_pos(centroid)
       else:
+        self.hasLargest = 0
         largest_box = None
         centroid = None
         z = None
@@ -287,6 +290,7 @@ class ObjectTracker:
 	if area > greatestArea:
             largest_box = box
 	    greatestArea = area
+    print('greatestArea=', greatestArea)
 
 ################################################################################
       
@@ -322,7 +326,11 @@ class ObjectTracker:
 #        print(u_v);
 #        print('\n=============\n')
         cv2.circle(traj_image, tuple(u_v), 5, 100, -1)
-    self.ownpublisher.publish(str(u_v[0]) + ', ' + str(u_v[1]))
+    string_record = str(u_v[0]) + ', ' + str(u_v[1])
+    if self.hasLargest == 1:
+        self.ownpublisher.publish(string_record)
+    else:
+        self.ownpublisher.publish('find!')
 
     cv2.imshow("Trajectory vs. Observations", traj_image)
     
