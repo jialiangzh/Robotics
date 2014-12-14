@@ -3,7 +3,7 @@ import rospy
 from std_msgs.msg import String
 
 pub = rospy.Publisher('command_velocity', String)
-global signstored
+signstored = 1
 
 def listener():
     rospy.init_node('commander')
@@ -11,6 +11,7 @@ def listener():
     rospy.spin()
 
 def talker(traj):
+    global signstored
     if traj.data == 'find!':
         rotation(signstored * 18)
         return

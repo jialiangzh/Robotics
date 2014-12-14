@@ -21,7 +21,7 @@ def talker(traj):
     x = int(x_str)
     y = int(y_str)
     delta_x = x - 340
-    if abs(delta_x) > 100:
+    if abs(delta_x) > 50:
         speed = delta_x / abs(delta_x) * 17
         signstored = delta_x / abs(delta_x)
         rotation(speed)

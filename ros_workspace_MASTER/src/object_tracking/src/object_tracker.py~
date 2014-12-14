@@ -13,7 +13,6 @@ from numpy.linalg import *
 
 class ObjectTracker:
   def __init__(self):
-##### Edit These Lines  ########################################################
     self.ownpublisher = rospy.Publisher('trajectory', String, queue_size=1)
     self.publish_count = 0
 
@@ -39,8 +38,6 @@ class ObjectTracker:
     COLOR_MAX = (10,255,191) #HSV
     BLUR_RADIUS = 12
     BLUR_SIGMA = 0
-
-################################################################################
 
     # Homography class variables
     self.homography_state = 'Prompt'
@@ -111,6 +108,7 @@ class ObjectTracker:
 
       # If we found red blobs, pick the largest one as the ball
       if len(bounding_boxes) > 0:
+        self.hasLargest = 1
         largest_box = self.find_largest_box(bounding_boxes)
         
         # Find the centroid of the box
@@ -119,6 +117,7 @@ class ObjectTracker:
         # Convert centroid to world coordinates, and record the observation
         z = self.compute_world_pos(centroid)
       else:
+        self.hasLargest = 0
         largest_box = None
         centroid = None
         z = None
@@ -274,12 +273,7 @@ class ObjectTracker:
   # The two points are the upper left and lower right corners of the box
   def find_largest_box(self, bounding_boxes):
 
-#### Edit These Lines ##########################################################
-
     largest_box = bounding_boxes[0]
-
-    # bounding_boxes [[x,y],[x,y]]
-
     greatestArea = 0
     for box in bounding_boxes:
         w = box[1][0] - box[0][0]
@@ -288,10 +282,9 @@ class ObjectTracker:
 	if area > greatestArea:
             largest_box = box
 	    greatestArea = area
+    if greatestArea < 10:
+        self.hasLargest = 0
     print('greatestArea=', greatestArea)
-
-################################################################################
-      
     return largest_box
 
   # Draw the last Kalman filtered point on the output image
@@ -312,20 +305,17 @@ class ObjectTracker:
 
     for traj_point in self.traj[-n_hist:]:
       u_v = self.compute_image_pos(traj_point[[0,2]])
-#      print('==trajectory==\n')
-#      print(u_v);
-#      print('\n=============\n')
       cv2.circle(traj_image, tuple(u_v), 5, 0, -1)
 
     for obs_point in self.obs[-n_hist:]:
       if obs_point is not None:
         u_v = self.compute_image_pos(obs_point)
-#        print('==reality==\n')
-#        print(u_v);
-#        print('\n=============\n')
         cv2.circle(traj_image, tuple(u_v), 5, 100, -1)
     string_record = str(u_v[0]) + ', ' + str(u_v[1])
-    self.ownpublisher.publish(string_record)
+    if self.hasLargest == 1:
+        self.ownpublisher.publish(string_record)
+    else:
+        self.ownpublisher.publish('find!')
 
     cv2.imshow("Trajectory vs. Observations", traj_image)
     
@@ -343,14 +333,9 @@ class ObjectTracker:
     self.last_time = current_time
 
     x = self.traj[-1] # x is a 1-D numpy.array of the form x = np.array([1.,2.,3.,4.])
-    
-#### Edit These Lines ##########################################################
 
     A = np.matrix([[1, T, 0, 0], [0, 1, 0, 0], [0, 0, 1, T], [0, 0, 0, 1]])
     C = np.matrix([[1, 0, 0, 0], [0, 0, 1, 0]])
-
-################################################################################
-
     Q = 1000*np.eye(4)
     R = 0.1*np.eye(2)
 
@@ -360,7 +345,6 @@ class ObjectTracker:
 
     # Update state estimate and covariance if there is an observation
     if z is not None:
-#### Edit These Lines ##########################################################
      
       x_hat_array = np.asarray(x_hat).reshape(-1)
       y = C.dot(x_hat_array)
@@ -371,7 +355,6 @@ class ObjectTracker:
       x_plus = np.asarray(x_hat + K.dot(e)).reshape(-1)
       P_plus = (np.eye(4) - K.dot(C)).dot(P_hat)
 
-################################################################################
     else:
       x_plus = np.asarray(x_hat).reshape(-1)
       P_plus = P_hat

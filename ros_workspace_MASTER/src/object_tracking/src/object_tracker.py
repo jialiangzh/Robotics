@@ -11,9 +11,28 @@ from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 from numpy.linalg import *
 
+mode = 0
+
+def start():
+    global mode
+    entered = False
+    while not entered:
+        user_string = raw_input("Please enter mode:")
+        if user_string == 'hand':
+            mode = 1
+            entered = True
+            node = ObjectTracker()
+            node.run()
+        elif user_string == 'ball':
+            mode = 0
+            entered = True
+            node = ObjectTracker()
+            node.run()
+        else:
+            entered = False
+
 class ObjectTracker:
   def __init__(self):
-##### Edit These Lines  ########################################################
     self.ownpublisher = rospy.Publisher('trajectory', String, queue_size=1)
     self.publish_count = 0
 
@@ -27,20 +46,21 @@ class ObjectTracker:
 #    COLOR_MAX = (2,169,169) #HSV
 #    BLUR_RADIUS = 50
 #    BLUR_SIGMA = 10
+    
+    global mode
 
-# For human hand: 
-#    COLOR_MIN = (20,117,0)
-#    COLOR_MAX = (22,255,255)
-#    BLUR_RADIUS = 50
-#    BLUR_SIGMA = 3 
-
-    # now:
-    COLOR_MIN = (0,230,129) # HSV
-    COLOR_MAX = (10,255,191) #HSV
-    BLUR_RADIUS = 12
-    BLUR_SIGMA = 0
-
-################################################################################
+    # For human hand:
+    if mode == 1:
+        COLOR_MIN = (20,117,0)
+        COLOR_MAX = (22,255,255)
+        BLUR_RADIUS = 50
+        BLUR_SIGMA = 3 
+    else:
+        # ball playing
+        COLOR_MIN = (0,230,129) # HSV
+        COLOR_MAX = (10,255,191) #HSV
+        BLUR_RADIUS = 12
+        BLUR_SIGMA = 0
 
     # Homography class variables
     self.homography_state = 'Prompt'
@@ -276,12 +296,7 @@ class ObjectTracker:
   # The two points are the upper left and lower right corners of the box
   def find_largest_box(self, bounding_boxes):
 
-#### Edit These Lines ##########################################################
-
     largest_box = bounding_boxes[0]
-
-    # bounding_boxes [[x,y],[x,y]]
-
     greatestArea = 0
     for box in bounding_boxes:
         w = box[1][0] - box[0][0]
@@ -290,10 +305,9 @@ class ObjectTracker:
 	if area > greatestArea:
             largest_box = box
 	    greatestArea = area
+    if greatestArea < 10:
+        self.hasLargest = 0
     print('greatestArea=', greatestArea)
-
-################################################################################
-      
     return largest_box
 
   # Draw the last Kalman filtered point on the output image
@@ -314,17 +328,11 @@ class ObjectTracker:
 
     for traj_point in self.traj[-n_hist:]:
       u_v = self.compute_image_pos(traj_point[[0,2]])
-#      print('==trajectory==\n')
-#      print(u_v);
-#      print('\n=============\n')
       cv2.circle(traj_image, tuple(u_v), 5, 0, -1)
 
     for obs_point in self.obs[-n_hist:]:
       if obs_point is not None:
         u_v = self.compute_image_pos(obs_point)
-#        print('==reality==\n')
-#        print(u_v);
-#        print('\n=============\n')
         cv2.circle(traj_image, tuple(u_v), 5, 100, -1)
     string_record = str(u_v[0]) + ', ' + str(u_v[1])
     if self.hasLargest == 1:
@@ -348,14 +356,9 @@ class ObjectTracker:
     self.last_time = current_time
 
     x = self.traj[-1] # x is a 1-D numpy.array of the form x = np.array([1.,2.,3.,4.])
-    
-#### Edit These Lines ##########################################################
 
     A = np.matrix([[1, T, 0, 0], [0, 1, 0, 0], [0, 0, 1, T], [0, 0, 0, 1]])
     C = np.matrix([[1, 0, 0, 0], [0, 0, 1, 0]])
-
-################################################################################
-
     Q = 1000*np.eye(4)
     R = 0.1*np.eye(2)
 
@@ -365,7 +368,6 @@ class ObjectTracker:
 
     # Update state estimate and covariance if there is an observation
     if z is not None:
-#### Edit These Lines ##########################################################
      
       x_hat_array = np.asarray(x_hat).reshape(-1)
       y = C.dot(x_hat_array)
@@ -376,7 +378,6 @@ class ObjectTracker:
       x_plus = np.asarray(x_hat + K.dot(e)).reshape(-1)
       P_plus = (np.eye(4) - K.dot(C)).dot(P_hat)
 
-################################################################################
     else:
       x_plus = np.asarray(x_hat).reshape(-1)
       P_plus = P_hat
@@ -385,6 +386,5 @@ class ObjectTracker:
     self.P = P_plus
           
 if __name__ == '__main__':
-  node = ObjectTracker()
-  node.run()
+    start()
 
