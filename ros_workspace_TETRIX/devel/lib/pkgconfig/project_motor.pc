@@ -1,0 +1,6 @@
+Name: project_motor
+Description: Description of project_motor
+Version: 0.0.0
+Cflags: -I
+Libs: -L/home/pi/ros_workspace/devel/lib 
+Requires: 
