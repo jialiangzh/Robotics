@@ -52,11 +52,18 @@ Introduction to Robotics class, the robotic pet is built on the UC Berkeley TETR
 	<span class="octicon octicon-link"></span></a>Introduction</h3>
 
 <p>
-Our project aims to bring convenience and entertainment to people's everyday life.
-An ideal robotic pet can follow the master like a servant and can perform real time communication 
-with the master. The robotic pet should also resemble a real pet and bring enjoyment to master's 
-free time. In our project, we specifically investigate on implementing two major functionalities 
-for our robot pet: hand gesture tracking and self entertaining with a ball. We want it to be live!
+Our robotic pet project aims to bring happiness and potential convenience to people's everyday life.
+Because robots do not have minds or ideas, how to make them "live" like real animals is a quite
+interesting topic for both of us.
+</p>
+
+<p>
+An ideal robotic pet can follow the pet owner like a servant with real time interaction with 
+the owner. The robotic pet should also resemble a real pet and bring enjoyment to its owner.
+In our project, we specifically investigated on implementing two major functionalities 
+for our robotic pet: not only the feature of self-entertaining with a ball, but also owner hand gesture 
+comprehension. So in the future, one can possibly use the robot as an extra carrier to lift heavy package,
+which would be especially beneficial to elder civilians.
 </p>
 
 <!-- <pre><code>$ cd your_repo_root/repo_name
@@ -64,40 +71,51 @@ $ git fetch origin
 $ git checkout gh-pages
 </code></pre> -->
 
-<!-- <p>If you're using the GitHub for Mac, simply sync your repository 
-and you'll see the new branch.</p> -->
-
 <h3>
 <a id="Design" class="anchor" href="#Design" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Design</h3>
+	
+<h4>
+<a id="DesignCriteria" class="anchor" href="#DesignCriteria" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Design Criteria</h4>
+	
+<ul>
+<li>1. Stable self-entertaining mode to mimic a pet</li>
+<li>2. Effective hand gesture comprehension and interaction</li>
+<li>3. Interactive with pet's owner when possible</li>
+<li>4. Reduce communication lagging and response time</li>
+<li>5. Durable, robust and safe for users</li>
+</ul>
 
 <h4>
 <a id="Computer-Vision" class="anchor" href="#Computer-Vision" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Computer Vision</h4>
 
 <p>
-a) Data streaming: Because the board on the robot does not have enough calculating power, we decide to put all heavy computations on our
-laptop. So the first task is to stream the data from the robot camera to our laptop. The package "raspicam_node" really helped us on adjusting
-framerate and quality of the image so that the laptop can receive the data stream in real time.
+a) Data streaming: Because the board on the robot does not have enough calculating power, we decide to put all heavy computations 
+on our laptop. So the first task is to stream the data from the robot camera to our laptop. The package "raspicam_node" really 
+helped us on adjusting the framerate and quality of the image so that the laptop can receive the data stream in real time with
+little lagging.
 </p>
 
 <p>
-b) Our second task is to do camera calibration. By computing the homography matrix H, we are able to map the 2-dimensional pixel position
- of the digital camera into the actual floor coordinate (x, y). The robot now can process the object position in the ground coordinates.
+b) Our second task is to do camera calibration. By computing the homography matrix H, we are able to map the 2-dimensional 
+pixel position of the digital camera into the actual floor coordinate (x, y). The robot now can process the object position 
+in the ground coordinates accordingly.
 </p>
 
 <div>
-<img src="./images/Calibration_Graph.jpg" alt="Calibration_Graph" height="250" align="middle">
+<img src="./images/Calibration_Graph_smaller.jpg" alt="Calibration_Graph" height="250" align="middle">
 </div>
 
 <p>
-c) Now we can visualize the ball and the hand. This is done by filtering out the environment pixels and using the python cv 
-functions to process the target countours and to locate the center of the target. If other environment noise is present, we should
-find the largest bounding box for the countours and to indicate the location. If the largest contour is small enough, then we can say
-the target is not present in our image. The lab6 "Object tracking" gives us the initial help. We build upon the lab6, designed seperate mode
- for the human hand and the ball, implemented the bounding box area criterian for checking the presence of the object, and designed the 
-approprate paramemters for the Kalman filter for the linear motion prediction. Using ROS publisher, predicted location and the actual location
- of target object is published and wating for further processing.
+c) Now we can visualize the ball and the input gesture. This is done by filtering out the environment pixels and using the python cv 
+functions to process the target contours and to locate the centre of the target. If other environment noise presents, we should
+find the largest bounding box for the contours and to indicate the location. If the largest contour is small enough, then we can say
+the target is not present in our image. Lab 6 "Object tracking" in the course gives us the initial idea. We built upon lab 6, 
+designed separate mode for the hand gesture and the ball, implemented the bounding box area criteria for checking the presence 
+of the object, and designed the appropriate parameters for the Kalman Filter for the linear motion prediction. 
+Using ROS publisher, predicted location and the actual location of target object is published and waiting for further processing.
 </p>
 
 <h4>
@@ -131,16 +149,6 @@ will be received by the left and the right motor and the motor will perform as d
 <h3>
 <a id="Implementation" class="anchor" href="#Implementation" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Implementation</h3>
-	
-<h4>
-<a id="DesignCriteria" class="anchor" href="#DesignCriteria" aria-hidden="true">
-	<span class="octicon octicon-link"></span></a>Design Criteria</h4>
-	
-<ul>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-</ul>
 
 <h4>
 <a id="Functionality" class="anchor" href="#Functionality" aria-hidden="true">
@@ -187,6 +195,10 @@ Debian Weezy
 <div>
 <img src="./images/Gesture_Comprehension.jpg" alt="Gesture_Comprehension" height="250" align="middle">
 </div>
+
+<h3>
+<a id="Results" class="anchor" href="#Results" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Results</h3>
 	
 <h3>
 <a id="Conclusion" class="anchor" href="#Conclusion" aria-hidden="true">
@@ -213,7 +225,7 @@ templating features.</p> -->
 	<span class="octicon octicon-link"></span></a>Xingchun Wang</h4>
 
 <div>
-<img src="./images/Gesture_Comprehension.jpg" alt="Xingchun" height="200" align="middle">
+<img src="./images/IMG_3689.JPG" alt="Xingchun" height="200" align="middle">
 </div>
 
 <p>
@@ -228,7 +240,7 @@ by shooting me an <a href="acjwxc@126.com">email</a>.</p>
 	<span class="octicon octicon-link"></span></a>Jialiang Zhang</h4>
 
 <div>
-<img src="./images/Gesture_Comprehension.jpg" alt="Jialiang" height="200" align="middle">
+<img src="./images/IMG_3691.JPG" alt="Jialiang" height="200" align="middle">
 </div>
 
 <p>
@@ -247,6 +259,10 @@ In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-menti
 PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), 
 and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) 
 founded GitHub.</p> -->
+
+<h3>
+<a id="Additional-Materials" class="anchor" href="#Additional-Materials" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Additional Materials</h3>
 
 <h3>
 <a id="References" class="anchor" href="#References" aria-hidden="true">
