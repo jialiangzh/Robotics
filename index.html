@@ -33,13 +33,13 @@
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Welcome to Our Robotic Pet Project!</h4>
 
-<h3>	
-<a id="Robotic Pet" class="anchor" href="#Robotic Pet" aria-hidden="true">
-	<span class="octicon octicon-link"></span></a>Robotic Pet</h3>
-	
+<br>
+
+<ul>	
 <div>
 <img src="./images/IMG_3686.JPG" alt="RoboticPet" height="400" align="middle">
 </div>
+</ul>
 
 <p>
 The Robotic Pet is an automated robot that can mimic common pets behaviours, like entertaining with
@@ -47,16 +47,21 @@ a ball autonomously and interacting with human gesture freely. As the final proj
 Introduction to Robotics class, the robotic pet is built on the UC Berkeley TETRIX robot platform.
 </p>
 
+<br>
+
 <h3>	
 <a id="Introduction" class="anchor" href="#Introduction" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Introduction</h3>
 
+<ul>
 <p>
 Our robotic pet project aims to bring happiness and potential convenience to people's everyday life.
 Because robots do not have minds or ideas, how to make them "live" like real animals is a quite
 interesting topic for both of us.
 </p>
+</ul>
 
+<ul>
 <p>
 An ideal robotic pet can follow the pet owner like a servant with real time interaction with 
 the owner. The robotic pet should also resemble a real pet and bring enjoyment to its owner.
@@ -65,30 +70,33 @@ for our robotic pet: not only the feature of self-entertaining with a ball, but 
 comprehension. So in the future, one can possibly use the robot as an extra carrier to lift heavy package,
 which would be especially beneficial to elder civilians.
 </p>
-
-<!-- <pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre> -->
+</ul>
 
 <h3>
 <a id="Design" class="anchor" href="#Design" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Design</h3>
-	
+
+<ul>	
 <h4>
 <a id="Functionality" class="anchor" href="#Functionality" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Functionality</h4>
-	
+</ul>
+
+<ul>	
 <ul>
 <li>Self-entertaining with a ball</li>
 <li>Automatic following with pet's owner</li>
 <li>Owner's hand gesture comprehension</li>
 </ul>
-	
+</ul>
+
+<ul>	
 <h4>
 <a id="DesignCriteria" class="anchor" href="#DesignCriteria" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Design Criteria</h4>
-	
+</ul>
+
+<ul>	
 <ul>
 <li>1. Stable self-entertaining mode to mimic a pet</li>
 <li>2. Effective hand gesture comprehension and interaction</li>
@@ -96,29 +104,43 @@ $ git checkout gh-pages
 <li>4. Reduce communication lagging and response time</li>
 <li>5. Durable, robust and safe for users</li>
 </ul>
+</ul>
 
+<ul>
 <h4>
 <a id="Computer-Vision" class="anchor" href="#Computer-Vision" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Computer Vision</h4>
+</ul>
 
-<p>
+<ul>
+<ul><li>
 a) Data streaming: Because the board on the robot does not have enough calculating power, we decide to put all heavy computations 
 on our laptop. So the first task is to stream the data from the robot camera to our laptop. The package "raspicam_node" really 
 helped us on adjusting the framerate and quality of the image so that the laptop can receive the data stream in real time with
 little lagging.
-</p>
+</li></ul>
+</ul>
 
-<p>
+<ul>
+<ul><li>
 b) Our second task is to do camera calibration. By computing the homography matrix H, we are able to map the 2-dimensional 
 pixel position of the digital camera into the actual floor coordinate (x, y). The robot now can process the object position 
 in the ground coordinates accordingly.
-</p>
+</li></ul>
+</ul>
 
+<ul>
+<ul>
 <div>
 <img src="./images/Calibration_Graph_smaller.jpg" alt="Calibration_Graph" height="250" align="middle">
 </div>
+</ul>
+</ul>
 
-<p>
+<br>
+
+<ul>
+<ul><li>
 c) Now we can visualize the ball and the input gesture. This is done by filtering out the environment pixels and using the python cv 
 functions to process the target contours and to locate the centre of the target. If other environment noise presents, we should
 find the largest bounding box for the contours and to indicate the location. If the largest contour is small enough, then we can say
@@ -126,112 +148,160 @@ the target is not present in our image. Lab 6 "Object tracking" in the course gi
 designed separate mode for the hand gesture and the ball, implemented the bounding box area criteria for checking the presence 
 of the object, and designed the appropriate parameters for the Kalman Filter for the linear motion prediction. 
 Using ROS publisher, predicted location and the actual location of target object is published and waiting for further processing.
-</p>
+</li></ul>
+</ul>
 
+<ul>
 <h4>
 <a id="Control-Signal-Generation" class="anchor" href="#Control-Signal-Generation" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Control Signal Generation</h4>
+</ul>
 
-<p>
+<ul>
+<ul><li>
 a) For the ball: Our goal is to let the robotic pet entertain the ball by itself. When the image processing publisher tells us that 
 there is no object present, we should let the pet rotate to find the new ball position until the ball come into its vision again. 
 Then, using feedback control technique, the pet adjusts its facing angle until it aligns itself to the ball. Then by several 
 short forward movements, it further adjusts its angle gradually. Finally, it will accelerate with full speed in order to hit the ball. 
 The ball is then kicked away and the robot will search it again and repeat the previous process. Our controller code does this
 job and publishes velocity control signal remotely to the robot.
-</p>
+</li></ul>
+</ul>
 
-<p>
+<ul>
+<ul><li>
 b) For hand gesture: The pet should be able to get the hand position and keep a certain distance with the hand. When the hand is
 far away, it should be able to catch up with the hand; and when the hand is shaking left or right, the pet should rotate according
 to the order and direction.
-</p>
+</li></ul>
+</ul>
 
+<ul>
 <h4>
 <a id="Materializing-Velocity-Signal" class="anchor" href="#Materializing-Velocity-Signal" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Materializing Velocity Signal</h4>
+</ul>
 
+<ul>
+<ul>
 <p>
 With the I2C tool, we are able to feed the speed information from the Raspberry Pi board to the DC motor. On our Raspberry Pi 
 board, we subscribe the velocity command from the ROS Master node, and send binary signal to the predetermined pins on our board. 
 Finally the electric signal will be received by the left and the right motor and they will perform as desired.
 </p>
+</ul>
+</ul>
+
+<br>
 
 <h3>
 <a id="Implementation" class="anchor" href="#Implementation" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Implementation</h3>
-	
+
+<ul>	
 <h4>
 <a id="Hardware" class="anchor" href="#Hardware" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Hardware</h4>
-	
+</ul>
+
+<ul>	
 <div>
 <img src="./images/IMG_3705.JPG" alt="Hardware1" height="250" align="middle">
 </div>
+</ul>
 
+<ul>
 <ul>
 <li>Raspberry Pi with camera</li>
 <li>Raspberry Pi extension board</li>
 </ul>
+</ul>
 
+<ul>
 <div>
 <img src="./images/IMG_3702.JPG" alt="Hardware1" height="250" align="middle">
 </div>
+</ul>
 
+<ul>
 <ul>
 <li>Tetrix Robot frames and wheels</li>
 <li>Tetrix DC motor and 12V Battery</li>
 </ul>
+</ul>
 
+<ul>
 <h4>
 <a id="Software" class="anchor" href="#Software" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Software</h4>
+</ul>
 
+<ul>
 <ul>
 <li>ROS Hydro & Groovy</li>
 <li>Debian Wheezy</li>
 </ul>
+</ul>
 
+<ul>
 <h4>
 <a id="FlowChart" class="anchor" href="#FlowChart" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Flow Chart</h4>
-	
-<p>For Self-entertaining with the ball:</p>
+</ul>
 
+<ul>	
+<p>For Self-entertaining with the ball:</p>
+</ul>
+
+<ul>
 <div>
-<img src="./images/Entertaining_Ball.jpg" alt="Entertaining_Ball" height="250" align="middle">
+<img src="./images/Entertaining_Ball.jpg" alt="Entertaining_Ball" height="260" align="middle">
 </div>
+</ul>
 
 <br>
 
+<ul>
 <p>For owner hand gesture comprehension:</p>
+</ul>
 
+<ul>
 <div>
-<img src="./images/Gesture_Comprehension.jpg" alt="Gesture_Comprehension" height="250" align="middle">
+<img src="./images/Gesture_Comprehension.jpg" alt="Gesture_Comprehension" height="260" align="middle">
 </div>
+</ul>
 
 <br>
 
 <h3>
 <a id="Results" class="anchor" href="#Results" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Results</h3>
-	
-<iframe width="560" height="315" src="//www.youtube.com/embed/AB0WW3HVuuA?rel=0" frameborder="0" allowfullscreen></iframe>
 
+<ul>	
+<iframe width="560" height="315" src="//www.youtube.com/embed/AB0WW3HVuuA?rel=0" frameborder="0" allowfullscreen></iframe>
+</ul>
+
+<ul>
 <p>
 We achieved success in the robotic pet project after several progresses. Though we were unable to further add in more human gesture
 comprehension utilizing more trajectory points and path planning, our basic functionality of a robotic pet worked well as designed.
 </p>
+</ul>
+
+<br>
 	
 <h3>
 <a id="Conclusion" class="anchor" href="#Conclusion" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Conclusion</h3>
-	
+
+<ul>	
 <p>
 Our project was quite successful, in consistent with our project goals and designs. However, we did encounter several difficulties
 and challenges throughout the project development.
 </p>
+</ul>
 
+<ul>
 <p>
 First of all, as designed in our project proposal, we planned to use Kinect to realize the function of gesture cognition. Yet after
 installing various libraries and dependencies on Raspberry Pi board (like OpenNI etc.), it turned out that this path is totally
@@ -242,7 +312,9 @@ the difficulties. In detail, we defined one node as ROS Master (our laptop) and 
 the wireless network router, the TETRIX robot node will only be responsible for image streaming as well as listening and executing the
 motor commands. Meanwhile, the master node will be in charge of all the other computations and action planning.
 </p>
+</ul>
 
+<ul>
 <p>
 This turned out to be very effective, however, a second difficulty came out immediately, which is the huge lagging in back and forth 
 communication between the two nodes. This dilemma made the TETRIX robot nearly impossible to track the target and perform real-time,
@@ -254,39 +326,53 @@ planning, we set each individual publisher and subscriber <code>queuesize = 1</c
 information/commands which are due to limited bandwidth and long executing time existing in he system. Hence, they will not 
 overwhelm and confuse the system any more.
 </p>
+</ul>
 
+<ul>
 <p>
 Future work can be done in adding more features to the robotic pet, refining the human hand gesture comprehension as well as optimizing
 the TETRIX motor control and smoothing the robot movements. These will surely be interesting topics to keep working on.
 </p>
+</ul>
 
 <h3>
 <a id="Team" class="anchor" href="#Team" aria-hidden="true"><span class="octicon octicon-link">
 	</span></a>Team</h3>
-	
+
+<ul>	
 <h4>
 <a name="Xingchun-Wang" class="anchor" href="#Xingchun-Wang">
 	<span class="octicon octicon-link"></span></a>Xingchun Wang</h4>
+</ul>
 
+<ul>
 <div>
 <img src="./images/IMG_3689.JPG" alt="Xingchun" height="220" align="middle">
 </div>
+</ul>
 
+<ul>
 <p>
 I am a third year Electrical Engineering &amp; Computer Science student at UC Berkeley.
 I like to playing piano and video games. This is a very enjoyable class on robotics 
 and it's very exciting to see the robot works out after days and nights of working and debugging.
 I have learned a lot here on both the theory and the applications. You can contact me 
 by shooting me an <a href="acjwxc@126.com">email</a>.</p>
+</ul>
 
+<ul>
 <h4>
 <a name="Jialiang-Zhang" class="anchor" href="#Jialiang-Zhang">
 	<span class="octicon octicon-link"></span></a>Jialiang Zhang</h4>
+</ul>
 
+<ul>
 <div>
 <img src="./images/IMG_3691.JPG" alt="Jialiang" height="220" align="middle">
 </div>
+</ul>
 
+<ul>
 <p>
 I am a graduate student in the Department of Electrical Engineering &amp; 
 Computer Science at UC Berkeley. My interests include Robotics, Embedded Software and
@@ -296,25 +382,30 @@ and the class project would surely be a valuable experience for my future engine
 career. You are welcome to check out my 
 <a href="http://www.linkedin.com/pub/jialiang-zhang/19/195/77">LinkedIn</a> 
 page or contact me through <a href="jialiang@berkeley.edu">email</a>!</p>
+</ul>
 
 <h3>
 <a id="Additional-Materials" class="anchor" href="#Additional-Materials" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Additional Materials</h3>
-	
+
+<ul>	
 <p>
 All the project source codes are available on Github, with download links on top of the page.
 Please feel free to check them out!
 </p>
+</ul>
 
 <h3>
 <a id="References" class="anchor" href="#References" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>References</h3>
-	
+
+<ul>	
 <p>
 • Department of Electrical Engineering and Computer Sciences. 
 Aaron Bestick and Austin Buchan. EE C125: Introduction to Robotics Lab Menu. 
 University of California, Berkeley. 2014.
 </p>
+</ul>
 
       </section>
     </div>
