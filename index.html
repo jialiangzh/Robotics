@@ -189,7 +189,7 @@ Finally the electric signal will be received by the left and the right motor and
 
 <ul>
 <li>ROS Hydro & Groovy</li>
-<li>Debian Weezy</li>
+<li>Debian Wheezy</li>
 </ul>
 
 <h4>
@@ -228,16 +228,37 @@ comprehension utilizing more trajectory points and path planning, our basic func
 	<span class="octicon octicon-link"></span></a>Conclusion</h3>
 	
 <p>
-Our project was quite successful, in consistant with our project goals and designs.
+Our project was quite successful, in consistent with our project goals and designs. However, we did encounter several difficulties
+and challenges throughout the project development.
 </p>
 
-<!-- <p>If you prefer to not use the automatic generator, push a branch named 
-<code>gh-pages</code> to your repository to create a page manually. 
-In addition to supporting regular HTML content, GitHub Pages support Jekyll, 
-a simple, blog aware static site generator written by our own Tom Preston-Werner. 
-Jekyll makes it easy to create site-wide headers and footers without having to copy 
-them across every page. It also offers intelligent blog support and other advanced 
-templating features.</p> -->
+<p>
+First of all, as designed in our project proposal, we planned to use Kinect to realize the function of gesture cognition. Yet after
+installing various libraries and dependencies on Raspberry Pi board (like OpenNI etc.), it turned out that this path is totally
+blocked due to the incompatibility between Kinect and Debian Wheezy + ROS Groovy. On the other hand, leaving heavy computation on
+a single Raspberry Pi board with very limited computing resources is very unwise. After consulting with course GSIs, we changed our
+implementation method into distributed system with real time communication utilizing Raspberry Pi camera on-board in order to overcome
+the difficulties. In detail, we defined one node as ROS Master (our laptop) and the other node as the TETRIX robot. With the help of
+the wireless network router, the TETRIX robot node will only be responsible for image streaming as well as listening and executing the
+motor commands. Meanwhile, the master node will be in charge of all the other computations and action planning.
+</p>
+
+<p>
+This turned out to be very effective, however, a second difficulty came out immediately, which is the huge lagging in back and forth 
+communication between the two nodes. This dilemma made the TETRIX robot nearly impossible to track the target and perform real-time,
+prompted action according to the fast-changing situations. To solve that issue, we explored various resources online and discovered
+a quite functional Raspberry Pi package named <code>raspicam_node</code>. With that, we would be able to experiment and adjust various image
+streaming frame rate and individual image quality, yielding a efficient usage of the limited bandwidth and nicely solved the lagging
+issue. At the same time, to optimize the performance of publisher and subscriber together with downstream calculations and action
+planning, we set each individual publisher and subscriber <code>queuesize = 1</code>. Therefore, there is no longer a huge stack of 
+information/commands which are due to limited bandwidth and long executing time existing in he system. Hence, they will not 
+overwhelm and confuse the system any more.
+</p>
+
+<p>
+Future work can be done in adding more features to the robotic pet, refining the human hand gesture comprehension as well as optimizing
+the TETRIX motor control and smoothing the robot movements. These will surely be interesting topics to keep working on.
+</p>
 
 <h3>
 <a id="Team" class="anchor" href="#Team" aria-hidden="true"><span class="octicon octicon-link">
@@ -248,14 +269,14 @@ templating features.</p> -->
 	<span class="octicon octicon-link"></span></a>Xingchun Wang</h4>
 
 <div>
-<img src="./images/IMG_3689.JPG" alt="Xingchun" height="200" align="middle">
+<img src="./images/IMG_3689.JPG" alt="Xingchun" height="220" align="middle">
 </div>
 
 <p>
 I am a third year Electrical Engineering &amp; Computer Science student at UC Berkeley.
-I like to playing piano and playing video games. This is an enjoyable introductory class
-on robotics and it's very exciting to see the robot works out after days and nights of debugging.
-I have learnt a lot here on both the theory and the applications. You can contact me 
+I like to playing piano and video games. This is a very enjoyable class on robotics 
+and it's very exciting to see the robot works out after days and nights of working and debugging.
+I have learned a lot here on both the theory and the applications. You can contact me 
 by shooting me an <a href="acjwxc@126.com">email</a>.</p>
 
 <h4>
@@ -267,25 +288,23 @@ by shooting me an <a href="acjwxc@126.com">email</a>.</p>
 </div>
 
 <p>
-I am a master student in Electrical Engineering &amp; Computer Science at UC Berkeley. 
-My interest include .... 
-I got involved in this class because of previous internships with robotic control 
-(Disney Imagineering and Universal Creative). I also have fond memories of high school 
-robotics competitions. If you would like to know more about me check out my 
-<a href="http://www.linkedin.com/...">LinkedIn</a> or shoot me an 
-<a href="mailto:@berkeley.edu">email!</a></p>
-
-<!-- <p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> 
-a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> 
-element will link to the contributor's GitHub Profile. For example: 
-In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), 
-PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), 
-and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) 
-founded GitHub.</p> -->
+I am a graduate student in the Department of Electrical Engineering &amp; 
+Computer Science at UC Berkeley. My interests include Robotics, Embedded Software and
+Machine Learning. I did my undergraduate study in Computer Engineering with some
+researches on FPGA and embedded systems. This is a very fun class for me to take
+and the class project would surely be a valuable experience for my future engineering
+career. You are welcome to check out my 
+<a href="http://www.linkedin.com/...">LinkedIn</a> page or contact me through 
+<a href="jialiang@berkeley.edu">email!</a></p>
 
 <h3>
 <a id="Additional-Materials" class="anchor" href="#Additional-Materials" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Additional Materials</h3>
+	
+<p>
+All the project source codes are available on Github, with download links on top of the page.
+Please feel free to check them out!
+</p>
 
 <h3>
 <a id="References" class="anchor" href="#References" aria-hidden="true">
@@ -293,14 +312,10 @@ founded GitHub.</p> -->
 	
 <p>
 • Department of Electrical Engineering and Computer Sciences. 
-Austin Buchan and Aaron Bestick. EE C125: Introduction to Robotics Lab Menu. 
+Aaron Bestick and Austin Buchan. EE C125: Introduction to Robotics Lab Menu. 
 University of California, Berkeley. 2014.
 </p>
 
-<!-- <p>Having trouble with Pages? Check out the documentation 
-at <a href="https://help.github.com/pages">https://help.github.com/pages</a> 
-or contact <a href="mailto:support@github.com">support@github.com</a> 
-and we’ll help you sort it out.</p> -->
       </section>
     </div>
     
