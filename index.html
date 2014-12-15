@@ -295,14 +295,14 @@ comprehension utilizing more trajectory points and path planning, our basic func
 	<span class="octicon octicon-link"></span></a>Conclusion</h3>
 
 <ul>	
-<p>
+<li>
 Our project was quite successful, in consistent with our project goals and designs. However, we did encounter several difficulties
 and challenges throughout the project development.
-</p>
+</li>
 </ul>
 
 <ul>
-<p>
+<li>
 First of all, as designed in our project proposal, we planned to use Kinect to realize the function of gesture cognition. Yet after
 installing various libraries and dependencies on Raspberry Pi board (like OpenNI etc.), it turned out that this path is totally
 blocked due to the incompatibility between Kinect and Debian Wheezy + ROS Groovy. On the other hand, leaving heavy computation on
@@ -311,11 +311,11 @@ implementation method into distributed system with real time communication utili
 the difficulties. In detail, we defined one node as ROS Master (our laptop) and the other node as the TETRIX robot. With the help of
 the wireless network router, the TETRIX robot node will only be responsible for image streaming as well as listening and executing the
 motor commands. Meanwhile, the master node will be in charge of all the other computations and action planning.
-</p>
+</li>
 </ul>
 
 <ul>
-<p>
+<li>
 This turned out to be very effective, however, a second difficulty came out immediately, which is the huge lagging in back and forth 
 communication between the two nodes. This dilemma made the TETRIX robot nearly impossible to track the target and perform real-time,
 prompted action according to the fast-changing situations. To solve that issue, we explored various resources online and discovered
@@ -325,14 +325,14 @@ issue. At the same time, to optimize the performance of publisher and subscriber
 planning, we set each individual publisher and subscriber <code>queuesize = 1</code>. Therefore, there is no longer a huge stack of 
 information/commands which are due to limited bandwidth and long executing time existing in he system. Hence, they will not 
 overwhelm and confuse the system any more.
-</p>
+</li>
 </ul>
 
 <ul>
-<p>
+<li>
 Future work can be done in adding more features to the robotic pet, refining the human hand gesture comprehension as well as optimizing
 the TETRIX motor control and smoothing the robot movements. These will surely be interesting topics to keep working on.
-</p>
+</li>
 </ul>
 
 <h3>
