@@ -68,6 +68,29 @@ $ git checkout gh-pages
 and you'll see the new branch.</p> -->
 
 <h3>
+<a id="Design" class="anchor" href="#Design" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Design</h3>
+
+<h4>
+<a id="Computer-Vision" class="anchor" href="#Computer-Vision" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Computer Vision</h4>
+
+<p>
+a) Data streaming: Because the board on the robot does not have enough calculating power, we decide to put all heavy computations on our
+laptop. So the first task is to stream the data from the robot camera to our laptop. The package "raspicam_node" really helped us on adjusting
+framerate and quality of the image so that the laptop can receive the data stream in real time.
+</p>
+
+<p>
+b) Our second task is to do camera calibration. By computing the homography matrix H, we are able to map the 2-dimensional pixel position
+ of the digital camera into the actual floor coordinate (x, y). The robot now can process the object position in the ground coordinates.
+</p>
+
+<div>
+<img src="./images/Calibration_Graph.jpg" alt="Calibration_Graph" height="250" align="middle">
+</div>
+
+<h3>
 <a id="Implementation" class="anchor" href="#Implementation" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Implementation</h3>
 	
@@ -118,13 +141,13 @@ Debian Weezy
 <p>For Self-entertaining with the ball:</p>
 
 <div>
-<img src="./images/Entertaining_Ball.jpg" alt="RoboticPet" height="250" align="middle">
+<img src="./images/Entertaining_Ball.jpg" alt="Entertaining_Ball" height="250" align="middle">
 </div>
 
 <p>For human hand gesture comprehension:</p>
 
 <div>
-<img src="./images/Gesture_Comprehension.jpg" alt="RoboticPet" height="250" align="middle">
+<img src="./images/Gesture_Comprehension.jpg" alt="Gesture_Comprehension" height="250" align="middle">
 </div>
 	
 <h3>
