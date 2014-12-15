@@ -90,6 +90,44 @@ b) Our second task is to do camera calibration. By computing the homography matr
 <img src="./images/Calibration_Graph.jpg" alt="Calibration_Graph" height="250" align="middle">
 </div>
 
+<p>
+c) Now we can visualize the ball and the hand. This is done by filtering out the environment pixels and using the python cv 
+functions to process the target countours and to locate the center of the target. If other environment noise is present, we should
+find the largest bounding box for the countours and to indicate the location. If the largest contour is small enough, then we can say
+the target is not present in our image. The lab6 "Object tracking" gives us the initial help. We build upon the lab6, designed seperate mode
+ for the human hand and the ball, implemented the bounding box area criterian for checking the presence of the object, and designed the 
+approprate paramemters for the Kalman filter for the linear motion prediction. Using ROS publisher, predicted location and the actual location
+ of target object is published and wating for further processing.
+</p>
+
+<h4>
+<a id="Control-Signal-Generation" class="anchor" href="#Control-Signal-Generation" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Control Signal Generation</h4>
+
+<p>
+a) For the ball: Our goal is to let the robot pet play the ball by itself. When the image processing publisher tells us there is no object
+present, we should let the pet rotate to find the ball until the ball come into its vision. Then, using feedback control, the pet adjusts its
+angle until it faces directly to the ball. Then by several short forward movement, it further adjusts its angle. Finally, it accelerate with
+full speed and run into the ball. The ball is then kicked away and the robot search again and repeat the process. Our controller code does this
+job and publishes velocity control signal remotely to our robot.
+</p>
+
+<p>
+b) For the human hand: The pet should be able to get of the hand position and keep a certain distance with the hand. When the hand is
+When the hand is far away, it should be able to catch up with the hand; and when the hand is shaking left or right, the pet should rotate and
+keep track of the hand position.
+</p>
+
+<h4>
+<a id="Materializing-Velocity-Signal" class="anchor" href="#Materializing-Velocity-Signal" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Materializing Velocity Signal</h4>
+
+<p>
+With the I2C tool, we are able feed the speed information from the raspberry pi board to the servo motor. On our raspberry pi board, we 
+subscribe the velocity command from the ROS master, and send binary signal to the predetermined pins on our board. Finally the electric signal
+will be received by the left and the right motor and the motor will perform as desired.
+</p>
+
 <h3>
 <a id="Implementation" class="anchor" href="#Implementation" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Implementation</h3>
