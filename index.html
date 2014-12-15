@@ -76,6 +76,16 @@ $ git checkout gh-pages
 	<span class="octicon octicon-link"></span></a>Design</h3>
 	
 <h4>
+<a id="Functionality" class="anchor" href="#Functionality" aria-hidden="true">
+	<span class="octicon octicon-link"></span></a>Functionality</h4>
+	
+<ul>
+<li>Self-entertaining with a ball</li>
+<li>Automatic following with pet's owner</li>
+<li>Owner's hand gesture comprehension</li>
+</ul>
+	
+<h4>
 <a id="DesignCriteria" class="anchor" href="#DesignCriteria" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Design Criteria</h4>
 	
@@ -142,7 +152,7 @@ to the order and direction.
 	<span class="octicon octicon-link"></span></a>Materializing Velocity Signal</h4>
 
 <p>
-With the I2C tool, we are able to feed the speed information from the Raspberry Pi board to the servo motor. On our Raspberry Pi 
+With the I2C tool, we are able to feed the speed information from the Raspberry Pi board to the DC motor. On our Raspberry Pi 
 board, we subscribe the velocity command from the ROS Master node, and send binary signal to the predetermined pins on our board. 
 Finally the electric signal will be received by the left and the right motor and they will perform as desired.
 </p>
@@ -150,36 +160,37 @@ Finally the electric signal will be received by the left and the right motor and
 <h3>
 <a id="Implementation" class="anchor" href="#Implementation" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Implementation</h3>
-
-<h4>
-<a id="Functionality" class="anchor" href="#Functionality" aria-hidden="true">
-	<span class="octicon octicon-link"></span></a>Functionality</h4>
-	
-<ul>
-<li>Self entertaining with a ball</li>
-<li>Human master's following</li>
-<li>Human master's hand gesture comprehension</li>
-</ul>
 	
 <h4>
 <a id="Hardware" class="anchor" href="#Hardware" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Hardware</h4>
+	
+<div>
+<img src="./images/IMG_3705.JPG" alt="Hardware1" height="250" align="middle">
+</div>
 
-<p>
-Raspberry Pi with camera, 
-rPi extension board, 
-Tetrix Robot frames and wheels, 
-Tetrix DC motor and 12V Battery
-</p>
+<ul>
+<li>Raspberry Pi with camera</li>
+<li>Raspberry Pi extension board</li>
+</ul>
+
+<div>
+<img src="./images/IMG_3702.JPG" alt="Hardware1" height="250" align="middle">
+</div>
+
+<ul>
+<li>Tetrix Robot frames and wheels</li>
+<li>Tetrix DC motor and 12V Battery</li>
+</ul>
 
 <h4>
 <a id="Software" class="anchor" href="#Software" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Software</h4>
 
-<p>
-ROS Hydro & Groovy, 
-Debian Weezy
-</p>
+<ul>
+<li>ROS Hydro & Groovy</li>
+<li>Debian Weezy</li>
+</ul>
 
 <h4>
 <a id="FlowChart" class="anchor" href="#FlowChart" aria-hidden="true">
@@ -191,17 +202,26 @@ Debian Weezy
 <img src="./images/Entertaining_Ball.jpg" alt="Entertaining_Ball" height="250" align="middle">
 </div>
 
-<p>For human hand gesture comprehension:</p>
+<br>
+
+<p>For owner hand gesture comprehension:</p>
 
 <div>
 <img src="./images/Gesture_Comprehension.jpg" alt="Gesture_Comprehension" height="250" align="middle">
 </div>
+
+<br>
 
 <h3>
 <a id="Results" class="anchor" href="#Results" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Results</h3>
 	
 <iframe width="560" height="315" src="//www.youtube.com/embed/AB0WW3HVuuA?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<p>
+We achieved success in the robotic pet project after several progresses. Though we were unable to further add in more human gesture
+comprehension utilizing more trajectory points and path planning, our basic functionality of a robotic pet worked well as designed.
+</p>
 	
 <h3>
 <a id="Conclusion" class="anchor" href="#Conclusion" aria-hidden="true">
