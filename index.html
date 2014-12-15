@@ -132,9 +132,9 @@ job and publishes velocity control signal remotely to the robot.
 </p>
 
 <p>
-b) For the human hand: The pet should be able to get of the hand position and keep a certain distance with the hand. When the hand is
-When the hand is far away, it should be able to catch up with the hand; and when the hand is shaking left or right, the pet should rotate and
-keep track of the hand position.
+b) For hand gesture: The pet should be able to get the hand position and keep a certain distance with the hand. When the hand is
+far away, it should be able to catch up with the hand; and when the hand is shaking left or right, the pet should rotate according
+to the order and direction.
 </p>
 
 <h4>
@@ -142,9 +142,9 @@ keep track of the hand position.
 	<span class="octicon octicon-link"></span></a>Materializing Velocity Signal</h4>
 
 <p>
-With the I2C tool, we are able feed the speed information from the raspberry pi board to the servo motor. On our raspberry pi board, we 
-subscribe the velocity command from the ROS master, and send binary signal to the predetermined pins on our board. Finally the electric signal
-will be received by the left and the right motor and the motor will perform as desired.
+With the I2C tool, we are able to feed the speed information from the Raspberry Pi board to the servo motor. On our Raspberry Pi 
+board, we subscribe the velocity command from the ROS Master node, and send binary signal to the predetermined pins on our board. 
+Finally the electric signal will be received by the left and the right motor and they will perform as desired.
 </p>
 
 <h3>
@@ -200,6 +200,8 @@ Debian Weezy
 <h3>
 <a id="Results" class="anchor" href="#Results" aria-hidden="true">
 	<span class="octicon octicon-link"></span></a>Results</h3>
+	
+<iframe width="560" height="315" src="//www.youtube.com/embed/AB0WW3HVuuA?rel=0" frameborder="0" allowfullscreen></iframe>
 	
 <h3>
 <a id="Conclusion" class="anchor" href="#Conclusion" aria-hidden="true">
