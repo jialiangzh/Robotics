@@ -123,11 +123,12 @@ Using ROS publisher, predicted location and the actual location of target object
 	<span class="octicon octicon-link"></span></a>Control Signal Generation</h4>
 
 <p>
-a) For the ball: Our goal is to let the robot pet play the ball by itself. When the image processing publisher tells us there is no object
-present, we should let the pet rotate to find the ball until the ball come into its vision. Then, using feedback control, the pet adjusts its
-angle until it faces directly to the ball. Then by several short forward movement, it further adjusts its angle. Finally, it accelerate with
-full speed and run into the ball. The ball is then kicked away and the robot search again and repeat the process. Our controller code does this
-job and publishes velocity control signal remotely to our robot.
+a) For the ball: Our goal is to let the robotic pet entertain the ball by itself. When the image processing publisher tells us that 
+there is no object present, we should let the pet rotate to find the new ball position until the ball come into its vision again. 
+Then, using feedback control technique, the pet adjusts its facing angle until it aligns itself to the ball. Then by several 
+short forward movements, it further adjusts its angle gradually. Finally, it will accelerate with full speed in order to hit the ball. 
+The ball is then kicked away and the robot will search it again and repeat the previous process. Our controller code does this
+job and publishes velocity control signal remotely to the robot.
 </p>
 
 <p>
