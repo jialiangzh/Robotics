@@ -29,12 +29,6 @@ def listener():
     while not str == 'e':
         str = raw_input("please enter end:")
 
-#    while not rospy.is_shutdown():
-#        rospy.
-#    try:
-#        rospy.spin()
-#    except KeyboardInterrupt:
-#        print("interrupted")
     rospy.signal_shutdown(None)
     motor_stop()
     print("executed")
@@ -42,40 +36,10 @@ def listener():
     
 def callback(message):
 
-#    print("got here\n")
-    """
-    message_data = message.data
-    message_split = message_data.split(", ")
-    x = int(message_split[0])
-    y = int(message_split[1])
-
-    rot_speed = 0    
-    delta_x = x - 340
-    delta_y = y - 340
-    forwardCount = 0
-
-    if abs(delta_x) > 50:
-        rot_speed = delta_x / abs(delta_x) * 17
-        print("delta_x: ", delta_x)
-        motor_go(rot_speed, 0-rot_speed)
-        motor_stop()
-    else:
-       #rot_speed = int(16 * float(abs(delta_x)) / 100)
-        #print(rot_speed)
-        print("delta_x: ", delta_x)
-        while (forwardCount < 7):
-        #if y < 400:
-            motor_go(100,100)
-            print("forward, y: ", y)
-            forwardCount+=1
-        motor_stop()
-        forwardCount = 0
-        print("stopped:", x, y)
-    #motor_go(rot_speed, 0-rot_speed)
-    #pub.publish("motor_run")
-    """
+    # get speed control information
     [v1, v2] = message.data.split(', ')
-    print('got ' + str(v1) + str(v2))
+    print('got ' + str(v1) + ', ' + str(v2))
+    # if speed = 101: in accelaration "kick" mode
     if v1 == '101':
     	for i in range(0, 10):
             motor_go(100, 100)
@@ -84,24 +48,6 @@ def callback(message):
         motor_go(int(v1), int(v2))
         motor_stop()
 
-    # mid_x_min = 330
-    # mid_x_max = 350
-
-    # speed1 = 0
-    # speed2 = 0
-    # if x < mid_x_min:
-    #     print('turn left')
-    #     motor_go(-15, 15)
-    # elif x > mid_x_max:
-    #     print('turn right')
-    #     motor_go(15, -15)
-    # else:
-
-"""
-
-def callback(message):
-    print(message.data)
-"""
 def motor_go(speed1, speed2):
 
     if (speed1 < 0):
