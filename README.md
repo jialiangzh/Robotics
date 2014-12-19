@@ -1,6 +1,8 @@
 Robotics
 ========
-EE125 Final Project: Robotic Pet
+UC Berkeley Introducion to Robotics Final Project: Robotic Pet
 
-The project website is:
+based on Raspberry Pi + TETRIX robot.
+
+The project website is at:
 http://jialiangzh.github.io/Robotics
